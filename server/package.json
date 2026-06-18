@@ -1,0 +1,22 @@
+{
+  "name": "westtale-server",
+  "version": "1.0.0",
+  "description": "西路军历史数字展陈后端API",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "init-db": "node src/scripts/initDb.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "better-sqlite3": "^11.3.0",
+    "multer": "^1.4.5-lts.1",
+    "dayjs": "^1.11.11"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
