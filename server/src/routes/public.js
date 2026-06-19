@@ -8,9 +8,9 @@ import {
 } from "../utils/helpers.js";
 
 const router = Router();
-const db = getDb();
 
 router.get("/storylines", (req, res) => {
+  const db = getDb();
   try {
     const status = req.query.status || "published";
     const rows = db
@@ -33,6 +33,7 @@ router.get("/storylines", (req, res) => {
 });
 
 router.get("/storylines/:id", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
     const row = db
@@ -57,6 +58,7 @@ router.get("/storylines/:id", (req, res) => {
 });
 
 router.get("/storylines/:id/chapters", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
     const status = req.query.status || "published";
@@ -84,6 +86,7 @@ router.get("/storylines/:id/chapters", (req, res) => {
 });
 
 router.get("/chapters/:id", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
 
