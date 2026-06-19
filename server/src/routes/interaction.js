@@ -7,9 +7,9 @@ import {
 } from "../utils/helpers.js";
 
 const router = Router();
-const db = getDb();
 
 router.get("/chapters/:id/comments", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
     const { page = 1, pageSize = 20 } = req.query;
@@ -47,6 +47,7 @@ router.get("/chapters/:id/comments", (req, res) => {
 });
 
 router.post("/chapters/:id/comments", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
     const { visitorName, content } = req.body;
@@ -95,6 +96,7 @@ router.post("/chapters/:id/comments", (req, res) => {
 });
 
 router.post("/comments/:id/like", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
 
@@ -120,6 +122,7 @@ router.post("/comments/:id/like", (req, res) => {
 });
 
 router.get("/chapters/:id/flowers", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
     const { page = 1, pageSize = 20 } = req.query;
@@ -152,6 +155,7 @@ router.get("/chapters/:id/flowers", (req, res) => {
 });
 
 router.post("/chapters/:id/flowers", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
     const { visitorName = "匿名用户", message = "" } = req.body;
@@ -200,6 +204,7 @@ router.post("/chapters/:id/flowers", (req, res) => {
 });
 
 router.get("/progress", (req, res) => {
+  const db = getDb();
   try {
     const { visitorId } = req.query;
 
@@ -227,6 +232,7 @@ router.get("/progress", (req, res) => {
 });
 
 router.post("/progress", (req, res) => {
+  const db = getDb();
   try {
     let { visitorId, chapterId, watched, lastPosition } = req.body;
 
@@ -265,6 +271,7 @@ router.post("/progress", (req, res) => {
 });
 
 router.post("/chapters/:id/mark-watched", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
     let { visitorId } = req.body;

@@ -7,10 +7,13 @@ const __dirname = path.dirname(__filename);
 
 let db;
 
-export function getDb() {
+export function getDb(dbPath) {
+  if (global.__testDb) {
+    return global.__testDb;
+  }
   if (!db) {
-    const dbPath = path.join(__dirname, "../../data/westtale.db");
-    db = new Database(dbPath);
+    const pathToUse = dbPath || path.join(__dirname, "../../data/westtale.db");
+    db = new Database(pathToUse);
     db.pragma("journal_mode = WAL");
     db.pragma("foreign_keys = ON");
   }
