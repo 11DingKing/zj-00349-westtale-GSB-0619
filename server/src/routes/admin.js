@@ -7,9 +7,9 @@ import {
 } from "../utils/helpers.js";
 
 const router = Router();
-const db = getDb();
 
 router.get("/stats", (req, res) => {
+  const db = getDb();
   try {
     const totalStorylines = db
       .prepare("SELECT COUNT(*) as count FROM storylines")
@@ -134,6 +134,7 @@ router.get("/stats", (req, res) => {
 });
 
 router.get("/storylines", (req, res) => {
+  const db = getDb();
   try {
     const rows = db
       .prepare(
@@ -153,6 +154,7 @@ router.get("/storylines", (req, res) => {
 });
 
 router.post("/storylines", (req, res) => {
+  const db = getDb();
   try {
     const { title, description, coverImage, sortOrder, status } = req.body;
 
@@ -179,6 +181,7 @@ router.post("/storylines", (req, res) => {
 });
 
 router.put("/storylines/:id", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
     const { title, description, coverImage, sortOrder, status } = req.body;
@@ -212,6 +215,7 @@ router.put("/storylines/:id", (req, res) => {
 });
 
 router.delete("/storylines/:id", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
 
@@ -227,6 +231,7 @@ router.delete("/storylines/:id", (req, res) => {
 });
 
 router.get("/chapters", (req, res) => {
+  const db = getDb();
   try {
     const { storylineId, status } = req.query;
 
@@ -267,6 +272,7 @@ router.get("/chapters", (req, res) => {
 });
 
 router.get("/chapters/:id", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
 
@@ -319,6 +325,7 @@ router.get("/chapters/:id", (req, res) => {
 });
 
 router.post("/chapters", (req, res) => {
+  const db = getDb();
   try {
     const {
       storylineId,
@@ -383,6 +390,7 @@ router.post("/chapters", (req, res) => {
 });
 
 router.put("/chapters/:id", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
     const {
@@ -445,6 +453,7 @@ router.put("/chapters/:id", (req, res) => {
 });
 
 router.patch("/chapters/:id/status", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
     const { status } = req.body;
@@ -469,6 +478,7 @@ router.patch("/chapters/:id/status", (req, res) => {
 });
 
 router.delete("/chapters/:id", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
 
@@ -484,6 +494,7 @@ router.delete("/chapters/:id", (req, res) => {
 });
 
 router.get("/comments", (req, res) => {
+  const db = getDb();
   try {
     const { status, chapterId, page = 1, pageSize = 20 } = req.query;
     const offset = (page - 1) * pageSize;
@@ -534,6 +545,7 @@ router.get("/comments", (req, res) => {
 });
 
 router.patch("/comments/:id/approve", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
 
@@ -553,6 +565,7 @@ router.patch("/comments/:id/approve", (req, res) => {
 });
 
 router.patch("/comments/:id/reject", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
 
@@ -572,6 +585,7 @@ router.patch("/comments/:id/reject", (req, res) => {
 });
 
 router.delete("/comments/:id", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
 
@@ -584,6 +598,7 @@ router.delete("/comments/:id", (req, res) => {
 });
 
 router.get("/artifacts", (req, res) => {
+  const db = getDb();
   try {
     const rows = db
       .prepare("SELECT * FROM artifacts ORDER BY created_at DESC")
@@ -595,6 +610,7 @@ router.get("/artifacts", (req, res) => {
 });
 
 router.post("/artifacts", (req, res) => {
+  const db = getDb();
   try {
     const { name, description, image, category, era } = req.body;
 
@@ -621,6 +637,7 @@ router.post("/artifacts", (req, res) => {
 });
 
 router.put("/artifacts/:id", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
     const { name, description, image, category, era } = req.body;
@@ -654,6 +671,7 @@ router.put("/artifacts/:id", (req, res) => {
 });
 
 router.delete("/artifacts/:id", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
 
@@ -669,6 +687,7 @@ router.delete("/artifacts/:id", (req, res) => {
 });
 
 router.get("/figures", (req, res) => {
+  const db = getDb();
   try {
     const rows = db
       .prepare("SELECT * FROM figures ORDER BY created_at DESC")
@@ -680,6 +699,7 @@ router.get("/figures", (req, res) => {
 });
 
 router.post("/figures", (req, res) => {
+  const db = getDb();
   try {
     const { name, birthDate, deathDate, description, portrait, role } =
       req.body;
@@ -708,6 +728,7 @@ router.post("/figures", (req, res) => {
 });
 
 router.put("/figures/:id", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
     const { name, birthDate, deathDate, description, portrait, role } =
@@ -741,6 +762,7 @@ router.put("/figures/:id", (req, res) => {
 });
 
 router.delete("/figures/:id", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
 

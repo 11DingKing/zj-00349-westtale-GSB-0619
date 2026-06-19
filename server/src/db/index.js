@@ -7,14 +7,18 @@ const __dirname = path.dirname(__filename);
 
 let db;
 
-export function getDb() {
+export function getDb(customDbPath) {
   if (!db) {
-    const dbPath = path.join(__dirname, "../../data/westtale.db");
-    db = new Database(dbPath);
+    const resolvedPath = customDbPath || path.join(__dirname, "../../data/westtale.db");
+    db = new Database(resolvedPath);
     db.pragma("journal_mode = WAL");
     db.pragma("foreign_keys = ON");
   }
   return db;
+}
+
+export function setDb(database) {
+  db = database;
 }
 
 export function closeDb() {

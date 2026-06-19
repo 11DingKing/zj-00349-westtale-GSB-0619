@@ -12,52 +12,60 @@ import adminRoutes from "./routes/admin.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const app = express();
-const PORT = process.env.PORT || 3001;
+export function createApp() {
+  const app = express();
 
-app.use(cors());
-app.use(express.json({ limit: "10mb" }));
-app.use(express.urlencoded({ extended: true }));
+  app.use(cors());
+  app.use(express.json({ limit: "10mb" }));
+  app.use(express.urlencoded({ extended: true }));
 
-getDb();
+  getDb();
 
-app.use("/api", publicRoutes);
-app.use("/api", contentRoutes);
-app.use("/api", interactionRoutes);
-app.use("/api/admin", adminRoutes);
+  app.use("/api", publicRoutes);
+  app.use("/api", contentRoutes);
+  app.use("/api", interactionRoutes);
+  app.use("/api/admin", adminRoutes);
 
-app.get("/api/health", (req, res) => {
-  res.json({
-    code: 0,
-    message: "ok",
-    data: { timestamp: new Date().toISOString() },
+  app.get("/api/health", (req, res) => {
+    res.json({
+      code: 0,
+      message: "ok",
+      data: { timestamp: new Date().toISOString() },
+    });
   });
-});
 
-const clientDist = path.join(__dirname, "../../client/dist");
-app.use(express.static(clientDist));
+  const clientDist = path.join(__dirname, "../../client/dist");
+  app.use(express.static(clientDist));
 
-app.get("*", (req, res) => {
-  const indexPath = path.join(clientDist, "index.html");
-  res.sendFile(indexPath, (err) => {
-    if (err) {
-      res.status(404).json({ code: 1, message: "Not Found" });
-    }
+  app.get("*", (req, res) => {
+    const indexPath = path.join(clientDist, "index.html");
+    res.sendFile(indexPath, (err) => {
+      if (err) {
+        res.status(404).json({ code: 1, message: "Not Found" });
+      }
+    });
   });
-});
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
-    code: 1,
-    message: "服务器内部错误",
-    data: null,
+  app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({
+      code: 1,
+      message: "服务器内部错误",
+      data: null,
+    });
   });
-});
 
-app.listen(PORT, () => {
-  console.log(`\n🚀 西路军历史数字展陈后端服务已启动`);
-  console.log(`📍 服务地址: http://localhost:${PORT}`);
-  console.log(`📡 API 前缀: http://localhost:${PORT}/api`);
-  console.log(`🔧 后台管理: http://localhost:${PORT}/admin\n`);
-});
+  return app;
+}
+
+if (process.env.NODE_ENV !== "test") {
+  const app = createApp();
+  const PORT = process.env.PORT || 3001;
+
+  app.listen(PORT, () => {
+    console.log(`\n🚀 西路军历史数字展陈后端服务已启动`);
+    console.log(`📍 服务地址: http://localhost:${PORT}`);
+    console.log(`📡 API 前缀: http://localhost:${PORT}/api`);
+    console.log(`🔧 后台管理: http://localhost:${PORT}/admin\n`);
+  });
+}
