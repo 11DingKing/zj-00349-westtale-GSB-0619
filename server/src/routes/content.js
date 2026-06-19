@@ -7,9 +7,9 @@ import {
 } from "../utils/helpers.js";
 
 const router = Router();
-const db = getDb();
 
 router.get("/artifacts", (req, res) => {
+  const db = getDb();
   try {
     const { page = 1, pageSize = 20, category } = req.query;
     const offset = (page - 1) * pageSize;
@@ -48,6 +48,7 @@ router.get("/artifacts", (req, res) => {
 });
 
 router.get("/artifacts/:id", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
 
@@ -81,6 +82,7 @@ router.get("/artifacts/:id", (req, res) => {
 });
 
 router.get("/figures", (req, res) => {
+  const db = getDb();
   try {
     const { page = 1, pageSize = 20, role } = req.query;
     const offset = (page - 1) * pageSize;
@@ -119,6 +121,7 @@ router.get("/figures", (req, res) => {
 });
 
 router.get("/figures/:id", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
 
@@ -152,6 +155,7 @@ router.get("/figures/:id", (req, res) => {
 });
 
 router.get("/figures/:id/storyline", (req, res) => {
+  const db = getDb();
   try {
     const { id } = req.params;
 
@@ -191,6 +195,7 @@ router.get("/figures/:id/storyline", (req, res) => {
 });
 
 router.get("/categories/artifacts", (req, res) => {
+  const db = getDb();
   try {
     const rows = db
       .prepare(
